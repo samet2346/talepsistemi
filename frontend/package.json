@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "NEXT_PUBLIC_API_URL=https://talepsistemi-1.onrender.com/api/v1 next build",
     "start": "next start",
     "lint": "eslint"
   },
