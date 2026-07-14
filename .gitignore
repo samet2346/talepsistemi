@@ -1,0 +1,54 @@
+# ==== Ortam / Gizli Bilgiler ====
+.env
+.env.*
+!.env.example
+*.env
+
+# ==== Python / Django ====
+venv/
+env/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+db.sqlite3
+staticfiles/
+media/
+*.log
+
+# ==== Node / Next.js ====
+node_modules/
+.next/
+out/
+build/
+dist/
+.npm/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==== Sıkıştırılmış / Yedek Dosyalar ====
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+*.bak
+
+# ==== IDE / Editör ====
+.vscode/
+.idea/
+*.swp
+
+# ==== İşletim Sistemi ====
+.DS_Store
+Thumbs.db
+
+# ==== Docker ====
+*.pid
+
+# ==== Diğer ====
+*.pem
+*.key
+usta_kapinda/config/numara.json

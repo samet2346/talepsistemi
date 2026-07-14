@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+/* 🚀 HATA VEREN @theme KALDIRILDI, STANDART CSS OLARAK YAPILANDIRILDI */
+:root {
+  --bg-main: #F4F7FA;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --btn-primary: #2563eb;
+
+  /* Tailwind sınıflarında doğrudan kullanabilmen için alias'ları buraya çaktık usta */
+  --color-themeBg: var(--bg-main);
+  --color-themeText: var(--text-main);
+  --color-themeDesc: var(--text-muted);
+  --color-themeBtn: var(--btn-primary);
+}
+
+[data-theme='night'] {
+  --bg-main: #0A0A0B;
+  --text-main: #FFFFFF;
+  --text-muted: #71717A;
+  --btn-primary: #3b82f6;
+  
+  --color-themeBg: var(--bg-main);
+  --color-themeText: var(--text-main);
+  --color-themeDesc: var(--text-muted);
+  --color-themeBtn: var(--btn-primary);
+}
+
+[data-theme='safe'] {
+  --bg-main: #F0F7F4;
+  --text-main: #062412;
+  --text-muted: #065f46;
+  --btn-primary: #059669;
+
+  --color-themeBg: var(--bg-main);
+  --color-themeText: var(--text-main);
+  --color-themeDesc: var(--text-muted);
+  --color-themeBtn: var(--btn-primary);
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* 📱 HER EKRANA UYUMLU GÜVENLİ RESPONSIVE SINIRLARI */
+@media (max-width: 768px) {
+  html, body {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Ekranın sağa doğru kaymasını engelleyen güvenli genişlik zırhı */
+  main, section, header, footer {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Tablo koruması */
+  table {
+    display: block !important;
+    overflow-x: auto !important;
+    width: 100% !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Medya koruması */
+  img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+  }
+}
