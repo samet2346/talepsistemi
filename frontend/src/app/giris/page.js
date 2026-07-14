@@ -135,7 +135,7 @@ const handleRegister = async (e) => {
         role: role === 'usta' ? 'MASTER' : 'USER',
       };
 
-      const response = await api.post("accounts/register/", payload);
+      const response = await api.post("/accounts/register/", payload);
 
       setStep('dogrulama');
       startCountdown();
@@ -159,7 +159,7 @@ const handleRegister = async (e) => {
     if (formData.dogrulamaKodu.length !== 6) return;
     setLoading(true);
     try {
-      const response = await api.post("accounts/verify/", {
+      const response = await api.post("/accounts/verify/", {
         email: formData.email,
         code: formData.dogrulamaKodu
       });
