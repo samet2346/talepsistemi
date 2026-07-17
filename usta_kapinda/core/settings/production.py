@@ -41,15 +41,12 @@ EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
 
 # --- Üretim Ortamı Gerçek Önbellek (Redis Cache) ---
 # Lokasyon sorguları ve usta listeleri için canlıda Redis devreye girer
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': os.getenv('REDIS_URL', 'redis://127.0.0.1:6379/1'),
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         ...
+#     }
+# }
 
 # --- Siber Güvenlik Duvarı (Sinyör Önlemleri) ---
 # Tarayıcıların XSS açıklarını yakalayan mekanizmasını zorunlu kılar
