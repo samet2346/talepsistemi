@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.http import HttpResponse
 from drf_spectacular.views import (
     SpectacularAPIView, 
@@ -29,18 +29,14 @@ def reset_admin(request):
     user.save()
     check = user.check_password('YeniSifre123!')
 
-    axes_msg = "axes yok"
-    try:
-        from axes.utils import reset
-        reset()
-        axes_msg = "axes kilitleri temizlendi"
-    except Exception as e:
-        axes_msg = f"axes hata: {e}"
+    auth_result = authenticate(request, phone='905550000000', password='YeniSifre123!')
+
+    all_users = list(User.objects.filter(phone='905550000000').values('id', 'phone', 'is_active', 'is_staff'))
 
     return HttpResponse(
-        f'created={created} phone={user.phone} is_staff={user.is_staff} '
-        f'is_active={user.is_active} is_superuser={user.is_superuser} '
-        f'password_check={check} | {axes_msg}'
+        f'created={created} phone={repr(user.phone)} is_staff={user.is_staff} '
+        f'is_active={user.is_active} password_check={check} | '
+        f'authenticate_result={auth_result} | matching_users={all_users}'
     )
 
 api_v1_patterns = [
