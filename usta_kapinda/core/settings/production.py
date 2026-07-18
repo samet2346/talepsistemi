@@ -7,7 +7,7 @@ import os
 from .base import *
 
 # 🛑 Canlı ortamda DEBUG kesinlikle KAPALI olmalıdır!
-DEBUG = True
+DEBUG = False
 
 # Canlı ortam domain adları .env üzerinden virgülle ayrılarak çekilir
 # Örn: ALLOWED_HOSTS=ustakapinda.com,api.ustakapinda.com
