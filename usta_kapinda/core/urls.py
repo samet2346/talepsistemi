@@ -28,11 +28,19 @@ def reset_admin(request):
     user.role = 'ADMIN'
     user.save()
     check = user.check_password('YeniSifre123!')
+
+    axes_msg = "axes yok"
+    try:
+        from axes.utils import reset
+        reset()
+        axes_msg = "axes kilitleri temizlendi"
+    except Exception as e:
+        axes_msg = f"axes hata: {e}"
+
     return HttpResponse(
         f'created={created} phone={user.phone} is_staff={user.is_staff} '
         f'is_active={user.is_active} is_superuser={user.is_superuser} '
-        f'is_banned={user.is_banned} is_deleted={user.is_deleted} '
-        f'password_check={check}'
+        f'password_check={check} | {axes_msg}'
     )
 
 api_v1_patterns = [
