@@ -1,5 +1,3 @@
-# project/urls.py (veya ana urls.py dosyan)
-
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -12,7 +10,6 @@ from drf_spectacular.views import (
     SpectacularSwaggerView
 )
 
-# 🔑 GEÇİCİ - Admin şifre sıfırlama (işin bitince silinecek)
 def reset_admin(request):
     secret = request.GET.get('key')
     if secret != 'Talep2026GizliAnahtar!':
@@ -26,22 +23,24 @@ def reset_admin(request):
     user.is_superuser = True
     user.is_staff = True
     user.is_active = True
+    user.is_banned = False
+    user.is_deleted = False
     user.role = 'ADMIN'
     user.save()
-    return HttpResponse(f'Sifre sifirlandi. created={created} phone={user.phone}')
+    check = user.check_password('YeniSifre123!')
+    return HttpResponse(
+        f'created={created} phone={user.phone} is_staff={user.is_staff} '
+        f'is_active={user.is_active} is_superuser={user.is_superuser} '
+        f'is_banned={user.is_banned} is_deleted={user.is_deleted} '
+        f'password_check={check}'
+    )
 
-# API Rotalarını bir listede toplayıp temiz bir yapı kuruyoruz
 api_v1_patterns = [
-# 🛡️ Kimlik, Takip ve Güvenlik
     path('accounts/', include('accounts.urls')),
     path('audit/', include('audit.urls')),
-#path('abuse/', include('abuse.urls')),
-
-# 🛠️ Hizmet ve İş Motoru
     path('services/', include('services.urls')),
     path('jobs/', include('jobs.urls')),
     path('masters/', include('masters.urls')),  
-# 📍 Yardımcı Modüller
     path('locations/', include('locations.urls')),
     path('notifications/', include('notifications.urls')),
     path('reviews/', include('reviews.urls')),
@@ -50,21 +49,14 @@ api_v1_patterns = [
 ]
 
 urlpatterns = [
-# 🏛️ Yönetim Paneli
     path('admin/', admin.site.urls), 
-
-# 🔑 GEÇİCİ - şifre sıfırlama endpoint'i
     path('reset-admin-gizli-xyz789/', reset_admin),
-
-# 🚀 API v1 (Tüm modüller burada toplandı)
     path('api/v1/', include(api_v1_patterns)),
-# 📝 Dokümantasyon (Swagger/Redoc)
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
 
-# 🖼️ Statik ve Medya Dosyaları
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
