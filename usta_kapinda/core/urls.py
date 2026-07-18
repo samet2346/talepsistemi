@@ -19,14 +19,16 @@ def reset_admin(request):
         return HttpResponse('yetkisiz', status=403)
     User = get_user_model()
     user, created = User.objects.get_or_create(
-        username='admin',
-        defaults={'email': 'admin@example.com'}
+        phone='905550000000',
+        defaults={'email': 'admin@ustakapinda.com', 'role': 'ADMIN'}
     )
     user.set_password('YeniSifre123!')
     user.is_superuser = True
     user.is_staff = True
+    user.is_active = True
+    user.role = 'ADMIN'
     user.save()
-    return HttpResponse(f'Sifre sifirlandi. created={created} username={user.username}')
+    return HttpResponse(f'Sifre sifirlandi. created={created} phone={user.phone}')
 
 # API Rotalarını bir listede toplayıp temiz bir yapı kuruyoruz
 api_v1_patterns = [
