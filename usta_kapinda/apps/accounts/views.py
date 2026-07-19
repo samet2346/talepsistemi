@@ -36,6 +36,7 @@ class RegisterView(APIView):
 
     @extend_schema(responses={201: UserSerializer})
     def post(self, request):
+        print("🔥 REGISTER GELEN BODY:", request.data)
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             # Serializer.save() zaten 6 haneli kodu üretiyor ve User nesnesini dönüyor
